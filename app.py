@@ -1,3 +1,4 @@
+import sys
 from PyQt5 import QtCore, QtWidgets
 from ui import Ui_mainWindow
 
@@ -9,8 +10,9 @@ class mainWindow(QtWidgets.QWidget, Ui_mainWindow):
         self.setMinimumSize(220, 200)
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        self.closse.clicked.connect(self.closeApp)
-        self.maxMin.clicked.connect(self.waxMinWindow)
+        self._close.clicked.connect(sys.exit)
+        self.minMax.clicked.connect(self.waxMinWindow)
+        self.hide.clicked.connect(self.showMinimized)
         self.www.returnPressed.connect(self.load)
         self.web.load(QtCore.QUrl("https://google.com"))
         self.web.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
@@ -39,16 +41,14 @@ class mainWindow(QtWidgets.QWidget, Ui_mainWindow):
         if url.isValid():
             self.web.load(url)
 
-    def closeApp(self):
-        self.close()
-
 
 if __name__ == "__main__":
-    app = QtWidgets.QApplication([])
+    app = QtWidgets.QApplication(sys.argv)
+    # app = QtWidgets.QApplication([])
     main = mainWindow()
     main.show()
-    app.exec_()
+    sys.exit(app.exec_())
+    # app.exec_()
 
-# self.web = QtWebEngineWidgets.QWebEngineView(self.body)
-# self.web.setObjectName("web")
+# self.web = QtWebEngineWidgets.QWebEngineView(self.main)
 # self.web.page().setBackgroundColor(QtGui.QColor("#000"))
